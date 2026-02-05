@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "required": ["scenes"],
+  "properties": {
+    "global": {
+      "type": "object",
+      "properties": {
+        "dryRun": { "type": "boolean" },
+        "printSql": { "type": "boolean" }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "databaseType", "datasource"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["physical", "sharding", "partition"]
+          },
+          "databaseType": { "type": "string" },
+          "table": { "type": "string" },
+          "logicTable": { "type": "string" },
+
+          "datasource": {
+            "type": "object",
+            "required": ["url", "username", "password"],
+            "properties": {
+              "url": { "type": "string" },
+              "username": { "type": "string" },
+              "password": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

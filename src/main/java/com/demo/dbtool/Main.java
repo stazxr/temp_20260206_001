@@ -13,6 +13,7 @@ public class Main {
             return;
         }
 
+		SchemaValidator.validateYaml(args[0]);
         Config config = YamlLoader.load(args[0]);
         YamlValidator.validate(config);
 

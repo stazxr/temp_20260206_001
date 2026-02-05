@@ -3,23 +3,72 @@ package com.demo.dbtool.config;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Scene 表示一个执行场景。
+ *
+ * 每个 scene 描述一个任务，例如：
+ *   - 创建物理表
+ *   - 创建分库分表
+ *   - 分区表维护
+ *
+ * YAML 中 scenes 数组每个元素映射为一个 Scene。
+ */
 public class Scene {
 
+    /** 场景名称，仅用于日志 */
     private String name;
+
+    /**
+     * 场景类型：
+     * physical  → 普通建表
+     * sharding  → 分库分表
+     * partition → 分区表
+     */
     private String type;
+
+    /**
+     * 数据库类型
+     * 当前支持：
+     *   gauss
+     *
+     * 未来可扩展：
+     *   mysql
+     *   postgres
+     *   oracle
+     */
     private String databaseType;
 
+    /** 数据源配置 */
     private DataSourceConfig datasource;
 
+    /** 实际表名（物理表 / 分区表使用） */
     private String table;
+
+    /** 逻辑表名（分库分表使用） */
     private String logicTable;
 
+    /** 表字段定义 */
     private List<Column> columns;
+
+    /** 主键字段名 */
     private String primaryKey;
 
+    /** 索引配置 */
     private List<IndexConfig> indexes;
 
+    /**
+     * 分库分表策略配置
+     *
+     * 示例：
+     * sharding:
+     *   shardKey: user_id
+     *   tableCount: 4
+     */
     private Map<String, Object> sharding;
+
+    /**
+     * 分区表策略配置
+     */
     private Map<String, Object> partition;
 
     public String getName() { return name; }
