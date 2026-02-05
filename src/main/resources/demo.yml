@@ -1,0 +1,39 @@
+global:
+  dryRun: true
+  printSql: true
+
+scenes:
+  - name: user_table
+    type: physical
+    databaseType: gauss
+    datasource:
+      url: jdbc:postgresql://localhost:5432/test
+      username: test
+      password: test
+    table: user_account
+    columns:
+      - name: id
+        type: bigint
+        nullable: false
+      - name: username
+        type: string
+        length: 64
+    primaryKey: id
+
+  - name: order_sharding
+    type: sharding
+    databaseType: gauss
+    datasource:
+      url: jdbc:postgresql://localhost:5432/test
+      username: test
+      password: test
+    logicTable: order_info
+
+  - name: log_partition
+    type: partition
+    databaseType: gauss
+    datasource:
+      url: jdbc:postgresql://localhost:5432/test
+      username: test
+      password: test
+    table: log_record
